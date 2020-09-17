@@ -15,8 +15,7 @@ Epochs_Max = Args.Max_Epoch
 Batch_Size = Args.Batch_Size
 
 seed_everything(42)
-Logger = CSVLogger("logs",name="Trial_SAGEConv",version=str(Batch_Size)+"_"+str(Epochs_Max))
-Trainset,TestSet = Load_Dataset("PPI")
+Logger = CSVLogger("logs",name="PPI_SAGEConv",version=str(Batch_Size)+"_"+str(Epochs_Max))
 Mod = GNN(Batch_Size,50,500,200,121)
 trainer = Trainer(logger=Logger,max_epochs=Epochs_Max)
 trainer.fit(Mod)
