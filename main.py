@@ -6,15 +6,17 @@ from model import GNN
 import argparse
 
 parser = argparse.ArgumentParser()
+parser.add_argument("Batch_Size",type=int)
 parser.add_argument("Max_Epoch", type=int)
 Args = parser.parse_args()
 
 
 Epochs_Max = Args.Max_Epoch
+Batch_Size = Args.Batch_Size
 
 seed_everything(42)
-Logger = CSVLogger("logs",name="Trial_SAGEConv")
-Dataset = Load_Dataset("Cora")
-Mod = GNN(1433,500,200,7)
+Logger = CSVLogger("logs",name="Trial_SAGEConv",version=str(Batch_Size)+"_"+str(Epochs_Max))
+Trainset,TestSet = Load_Dataset("PPI")
+Mod = GNN(Batch_Size,50,500,200,121)
 trainer = Trainer(logger=Logger,max_epochs=Epochs_Max)
 trainer.fit(Mod)
